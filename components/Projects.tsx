@@ -32,8 +32,17 @@ const Projects: React.FC = () => {
             tags: ['GoLang', 'Next.js', 'PostgreSQL', 'JWT', 'REST APIs'],
             description: 'Backend system for appointment scheduling with user authentication, role-based access control (admin, service provider, user), and secure JWT-based REST APIs.',
             image: '/appointment-booking-image.png',
-            link: '#',
-            github: '#',
+            link: 'https://appointment-booking-next.vercel.app/',
+            github: 'https://github.com/devlpr-nitish/appointment-booking-next',
+        },
+        {
+            category: 'Full-Stack',
+            title: 'PreExport',
+            tags: ['Next.js', 'Tailwind CSS', 'Express', 'ExcelJS'],
+            description: 'DSA sheet converter that transforms popular problem sheets (Striver SDE, A2Z, Blind 75, Last Moment) into Excel, Markdown, and CSV formats with smart filtering, progress tracking, custom metadata, and a clean responsive UI.',
+            image: '/preexport-image.png',
+            link: 'https://pre-export.vercel.app/',
+            github: 'https://github.com/devlpr-nitish/PreExport',
         },
         {
             category: 'Full-Stack',
@@ -41,9 +50,9 @@ const Projects: React.FC = () => {
             tags: ['React', 'Express', 'MongoDB', 'JWT'],
             description: 'College-exclusive platform where students share thoughts with 24-hour auto-deletion, like/dislike system, and role-based APIs for admins and users.',
             image: '/daily-thought-image.png',
-            link: '#',
-            github: '#',
-        },
+            link: 'https://daily-thought-silk.vercel.app/',
+            github: 'https://github.com/devlpr-nitish/DailyThought_frontend',
+        }
     ];
 
     const blogPosts = [
