@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
     Code2,
     Layers,
@@ -21,6 +21,8 @@ import {
     Send
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { GitHubCalendar } from 'react-github-calendar';
+import LeetCodeHeatmap from './LeetCodeHeatmap';
 
 interface Skill {
     name: string;
@@ -34,6 +36,14 @@ interface SkillCategory {
 }
 
 const Skills: React.FC = () => {
+    const calendarContainerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (calendarContainerRef.current) {
+            calendarContainerRef.current.scrollLeft = calendarContainerRef.current.scrollWidth;
+        }
+    }, []);
+
     const skillCategories: SkillCategory[] = [
         {
             name: 'PROGRAMMING LANGUAGES',
@@ -166,6 +176,37 @@ const Skills: React.FC = () => {
                         </div>
                     );
                 })}
+            </div>
+
+            <h2 className="text-2xl font-bold mb-6 mt-16 flex items-center gap-2">
+                Days I Code
+                <span className="text-sm text-gray-500 font-normal">My GitHub activity</span>
+            </h2>
+
+            <div
+                ref={calendarContainerRef}
+                className="overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] flex justify-center"
+            >
+                <div className="min-w-fit">
+                    <GitHubCalendar
+                        username="devlpr-nitish"
+                        colorScheme="dark"
+                        blockMargin={4}
+                        blockSize={14}
+                        fontSize={14}
+                    />
+                </div>
+            </div>
+
+            <h2 className="text-2xl font-bold mb-6 mt-16 flex items-center gap-2">
+                LeetCode Activity
+                <span className="text-sm text-gray-500 font-normal">My Problem Solving Journey</span>
+            </h2>
+
+            <div className="overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] flex justify-center text-gray-400">
+                <div className="min-w-fit w-full max-w-4xl">
+                    <LeetCodeHeatmap />
+                </div>
             </div>
         </section>
     );

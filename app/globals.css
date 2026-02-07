@@ -116,6 +116,12 @@
 }
 
 @layer base {
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   * {
     @apply border-border outline-ring/50;
   }
@@ -123,6 +129,54 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* LeetCode Heatmap Colors */
+.react-calendar-heatmap text {
+  font-size: 10px;
+  fill: #a1a1aa;
+  /* tallwind gray-400 equivalent */
+}
+
+.react-calendar-heatmap .color-empty {
+  fill: #1f2937;
+  rx: 2px;
+  ry: 2px;
+}
+
+/* gray-800 */
+.react-calendar-heatmap .color-scale-1 {
+  fill: #0e4429;
+  rx: 2px;
+  ry: 2px;
+}
+
+/* leetcode green 1 */
+.react-calendar-heatmap .color-scale-2 {
+  fill: #006d32;
+  rx: 2px;
+  ry: 2px;
+}
+
+/* leetcode green 2 */
+.react-calendar-heatmap .color-scale-3 {
+  fill: #26a641;
+  rx: 2px;
+  ry: 2px;
+}
+
+/* leetcode green 3 */
+.react-calendar-heatmap .color-scale-4 {
+  fill: #39d353;
+  rx: 2px;
+  ry: 2px;
+}
+
+/* leetcode green 4 */
+
+.react-calendar-heatmap rect:hover {
+  stroke: #555;
+  stroke-width: 1px;
 }
 
 /* Word-level magnifying glass effect only */

@@ -5,7 +5,7 @@ const Achievements: React.FC = () => {
     const achievements = [
         {
             text: 'Achieved ',
-            highlights: ['Knight rating of 1866+', ' on LeetCode, placing in the ', 'Top 5% globally'],
+            highlights: ['Knight rating of 1915+', ' on LeetCode, placing in the ', 'Top 4% globally'],
         },
         {
             text: 'Secured ',
