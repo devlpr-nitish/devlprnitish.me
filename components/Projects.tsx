@@ -37,6 +37,15 @@ const Projects: React.FC = () => {
         },
         {
             category: 'Full-Stack',
+            title: 'CodeLibra',
+            tags: ['Next.js', 'Node.js', 'Express', 'Go', 'Tailwind CSS'],
+            description: 'Platform for competitive programmers to track and compare coding profiles, solve contest-wise questions, set weekly goals, and view detailed analytics—all in a clean, structured interface.',
+            image: '/codelibra.png',
+            link: 'https://codelibra.vercel.app/',
+            github: 'https://github.com/devlpr-nitish/code-libra',
+        },
+        {
+            category: 'Full-Stack',
             title: 'PreExport',
             tags: ['Next.js', 'Tailwind CSS', 'Express', 'ExcelJS'],
             description: 'DSA sheet converter that transforms popular problem sheets (Striver SDE, A2Z, Blind 75, Last Moment) into Excel, Markdown, and CSV formats with smart filtering, progress tracking, custom metadata, and a clean responsive UI.',
@@ -176,10 +185,10 @@ const Projects: React.FC = () => {
                 ))}
             </div>
 
-            <div className="w-full h-px border-t border-dotted border-gray-700 my-12"></div>
+            {/* <div className="w-full h-px border-t border-dotted border-gray-700 my-12"></div> */}
 
             {/* Blog Section */}
-            <div className="mb-12">
+            {/* <div className="mb-12">
                 <h3 className="text-lg font-semibold text-white mb-6">Blog / Guides</h3>
                 <div className="space-y-3">
                     <a
@@ -209,7 +218,7 @@ const Projects: React.FC = () => {
                         <ExternalLink className="w-4 h-4 text-gray-600 group-hover:text-pink-400 transition-colors flex-shrink-0 ml-4" />
                     </a>
                 </div>
-            </div>
+            </div> */}
         </section>
     );
 };

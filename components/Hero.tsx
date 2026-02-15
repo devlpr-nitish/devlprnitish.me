@@ -51,7 +51,7 @@ const Hero: React.FC = () => {
                     className="flex items-center gap-2 px-3 py-1 text-sm rounded-md hover:bg-gray-700 text-white transition-colors border border-gray-700 hover:border-pink-500/50"
                     style={{ backgroundColor: 'oklch(14.1% 0.005 285.823)' }}
                 >
-                    <Download className="w-4 h-4" />
+                    <Download className="w-4 h-4 text-pink-500" />
                     Download CV
                 </a>
                 <a
@@ -65,11 +65,11 @@ const Hero: React.FC = () => {
             </div>
 
             <div className="flex flex-wrap gap-3 mb-8">
-                <SocialLink icon={Mail} label="Email" href="mailto:devlprnitish@gmail.com" />
-                <SocialLink icon={Twitter} label="Twitter" href="https://x.com/devlprnitish" />
-                <SocialLink icon={Github} label="GitHub" href="https://github.com/devlpr-nitish" />
-                <SocialLink icon={Code2} label="LeetCode" href="https://leetcode.com/u/devlprnitish/" />
-                <SocialLink icon={Linkedin} label="LinkedIn" href="https://www.linkedin.com/in/devlpr-nitish/" />
+                <SocialLink icon={Mail} label="Email" href="mailto:devlprnitish@gmail.com" iconColor="text-red-500" />
+                <SocialLink icon={Twitter} label="Twitter" href="https://x.com/devlprnitish" iconColor="text-blue-400" />
+                <SocialLink icon={Github} label="GitHub" href="https://github.com/devlpr-nitish" iconColor="text-purple-500" />
+                <SocialLink icon={Code2} label="LeetCode" href="https://leetcode.com/u/devlprnitish/" iconColor="text-orange-500" />
+                <SocialLink icon={Linkedin} label="LinkedIn" href="https://www.linkedin.com/in/devlpr-nitish/" iconColor="text-blue-500" />
             </div>
 
             <div className="w-full h-px bg-gradient-to-r from-transparent via-pink-500/50 to-transparent"></div>
