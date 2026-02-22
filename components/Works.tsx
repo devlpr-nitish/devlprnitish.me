@@ -22,17 +22,7 @@ const Work: React.FC = () => {
             description:
                 'Developing production-ready modules in Frappe/ERPNext with custom DocTypes, workflows, and background jobs. Integrated third-party services (UPS, Brevo, Twilio) and built Laravel-based CRUD modules following clean MVC architecture. Implemented RBAC and optimized SQL queries for improved performance.',
             link: undefined,
-        },
-        {
-            title: 'Campus Ambassador',
-            company: 'GeeksforGeeks',
-            location: undefined,
-            year: '2024 - 2025',
-            current: false,
-            description:
-                'Organized coding contests and webinars, mentoring peers in DSA preparation and building a strong campus coding community through discussions and daily coding practices.',
-            link: undefined,
-        },
+        }
     ];
 
     return (
