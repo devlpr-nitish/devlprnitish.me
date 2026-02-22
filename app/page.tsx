@@ -4,6 +4,7 @@ import { Mail, Twitter, Github, Linkedin, ExternalLink, Copy, Check } from 'luci
 import { useState } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
+import Services from '@/components/Services';
 import Skills from '@/components/Skills';
 import Achievements from '@/components/Achievements';
 import Work from '@/components/Works';
@@ -11,22 +12,22 @@ import Projects from '@/components/Projects';
 import Footer from '@/components/Footer';
 import CustomCursor from '@/components/CustomCursor';
 import WordMagnifier from '@/components/WordMagnifier';
+import ThemeShutter from '@/components/ThemeShutter';
 
 export default function Home() {
   return (
-    <main className="min-h-screen text-white cursor-none" style={{ backgroundColor: 'oklch(14.1% 0.005 285.823)' }}>
+    <main className="min-h-screen text-foreground cursor-none">
+      <ThemeShutter />
       <CustomCursor />
       {/* <WordMagnifier /> */}
       <Header />
       <div className="max-w-3xl mx-auto px-6 py-12">
         <Hero />
         <Work />
-        <div className="w-full h-px border-t border-dotted border-gray-700 my-12"></div>
-        <Skills />
-        <div className="w-full h-px border-t border-dotted border-gray-700 my-12"></div>
-        <Achievements />
-        <div className="w-full h-px border-t border-dotted border-gray-700 my-12"></div>
         <Projects />
+        <Skills />
+        <Services />
+        <Achievements />
         <Footer />
       </div>
     </main>

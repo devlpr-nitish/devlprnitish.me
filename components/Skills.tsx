@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef } from 'react';
 import {
     Code2,
@@ -23,6 +25,7 @@ import {
 import type { LucideIcon } from 'lucide-react';
 import { GitHubCalendar } from 'react-github-calendar';
 import LeetCodeHeatmap from './LeetCodeHeatmap';
+import { motion } from 'framer-motion';
 
 interface Skill {
     name: string;
@@ -103,19 +106,43 @@ const Skills: React.FC = () => {
         },
     ];
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.15,
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    };
+
     return (
-        <section className="mb-16">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+        <motion.section
+            className="mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={containerVariants}
+        >
+            <motion.h2
+                className="text-2xl font-bold mb-6 flex items-center gap-2"
+                variants={itemVariants}
+            >
                 Skills
                 <span className="text-sm text-gray-500 font-normal">What I work with</span>
-            </h2>
+            </motion.h2>
 
-            <div className="space-y-6">
+            <motion.div className="space-y-6" variants={itemVariants}>
                 {skillCategories.map((category) => {
                     const CategoryIcon = category.icon;
                     return (
                         <div key={category.name}>
-                            <h3 className="text-xs font-semibold text-gray-500 uppercase mb-3 tracking-wider flex items-center gap-2">
+                            <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase mb-3 tracking-wider flex items-center gap-2">
                                 <CategoryIcon className="w-3 h-3" />
                                 {category.name}
                             </h3>
@@ -133,7 +160,7 @@ const Skills: React.FC = () => {
                                             'PHP': 'text-indigo-400',
                                             'Go': 'text-cyan-500',
                                             'React': 'text-cyan-400',
-                                            'Next.js': 'text-white',
+                                            'Next.js': 'text-gray-800 dark:text-white',
                                             'Node.js': 'text-green-500',
                                             'Express.js': 'text-green-400',
                                             'Vue.js': 'text-green-400',
@@ -164,8 +191,7 @@ const Skills: React.FC = () => {
                                     return (
                                         <button
                                             key={skill.name}
-                                            className="px-3 py-1 rounded-md text-gray-300 text-sm border border-gray-700 hover:border-pink-500 transition-all flex items-center gap-1.5 cursor-default"
-                                            style={{ backgroundColor: 'oklch(14.1% 0.005 285.823)' }}
+                                            className="glass px-3 py-1 rounded-lg text-gray-600 dark:text-gray-300 text-sm transition-all flex items-center gap-1.5 cursor-default hover:border-pink-500/50 hover:scale-105"
                                         >
                                             <SkillIcon className={`w-3.5 h-3.5 ${getIconColor(skill.name)}`} />
                                             {skill.name}
@@ -176,16 +202,20 @@ const Skills: React.FC = () => {
                         </div>
                     );
                 })}
-            </div>
+            </motion.div>
 
-            <h2 className="text-2xl font-bold mb-6 mt-16 flex items-center gap-2">
+            <motion.h2
+                className="text-2xl font-bold mb-6 mt-16 flex items-center gap-2"
+                variants={itemVariants}
+            >
                 Days I Code
                 <span className="text-sm text-gray-500 font-normal">My GitHub activity</span>
-            </h2>
+            </motion.h2>
 
-            <div
+            <motion.div
                 ref={calendarContainerRef}
                 className="overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] flex justify-center"
+                variants={itemVariants}
             >
                 <div className="min-w-fit">
                     <GitHubCalendar
@@ -196,19 +226,25 @@ const Skills: React.FC = () => {
                         fontSize={14}
                     />
                 </div>
-            </div>
+            </motion.div>
 
-            <h2 className="text-2xl font-bold mb-6 mt-16 flex items-center gap-2">
+            <motion.h2
+                className="text-2xl font-bold mb-6 mt-16 flex items-center gap-2"
+                variants={itemVariants}
+            >
                 LeetCode Activity
                 <span className="text-sm text-gray-500 font-normal">My Problem Solving Journey</span>
-            </h2>
+            </motion.h2>
 
-            <div className="overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] flex justify-center text-gray-400">
+            <motion.div
+                className="overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] flex justify-center text-gray-400"
+                variants={itemVariants}
+            >
                 <div className="min-w-fit w-full max-w-4xl">
                     <LeetCodeHeatmap />
                 </div>
-            </div>
-        </section>
+            </motion.div>
+        </motion.section>
     );
 };
 
