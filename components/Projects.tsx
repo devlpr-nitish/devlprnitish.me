@@ -1,7 +1,8 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import {
+    Filter,
     ExternalLink,
     Github,
     Code2,
@@ -12,7 +13,9 @@ import {
     Globe,
     Server,
     Database,
-    Code
+    Code,
+    ChevronDown,
+    Check
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -28,6 +31,28 @@ interface Project {
 }
 
 const Projects: React.FC = () => {
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
+    const [showAllProjects, setShowAllProjects] = useState<boolean>(false);
+    const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+    const [isTechOpen, setIsTechOpen] = useState(false);
+    const categoryRef = useRef<HTMLDivElement>(null);
+    const techRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (categoryRef.current && !categoryRef.current.contains(event.target as Node)) {
+                setIsCategoryOpen(false);
+            }
+            if (techRef.current && !techRef.current.contains(event.target as Node)) {
+                setIsTechOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
     const projects: Project[] = [
         {
             category: 'Full-Stack',
@@ -41,14 +66,14 @@ const Projects: React.FC = () => {
         {
             category: 'Full-Stack',
             title: 'CodeLibra',
-            tags: ['Next.js', 'Node.js', 'Express', 'Go', 'Tailwind CSS'],
+            tags: ['Next.js', 'Node.js', 'Express', 'GoLang', 'Tailwind CSS'],
             description: 'Platform for competitive programmers to track and compare coding profiles, solve contest-wise questions, set weekly goals, and view detailed analytics—all in a clean, structured interface.',
             image: '/codelibra.png',
             link: 'https://codelibra.vercel.app/',
             github: 'https://github.com/devlpr-nitish/code-libra',
         },
         {
-            category: 'Full-Stack',
+            category: 'Frontend',
             title: 'PreExport',
             tags: ['Next.js', 'Tailwind CSS', 'Express', 'ExcelJS'],
             description: 'DSA sheet converter that transforms popular problem sheets (Striver SDE, A2Z, Blind 75, Last Moment) into Excel, Markdown, and CSV formats with smart filtering, progress tracking, custom metadata, and a clean responsive UI.',
@@ -66,6 +91,34 @@ const Projects: React.FC = () => {
             github: 'https://github.com/devlpr-nitish/DailyThought_frontend',
         }
     ];
+
+    const categories = useMemo(() => {
+        return Array.from(new Set(projects.map(p => p.category).filter(Boolean))) as string[];
+    }, [projects]);
+
+    const techStacks = useMemo(() => {
+        return Array.from(new Set(projects.flatMap(p => p.tags))) as string[];
+    }, [projects]);
+
+    const toggleCategory = (cat: string) => {
+        setSelectedCategories(prev =>
+            prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]
+        );
+    };
+
+    const toggleTech = (tech: string) => {
+        setSelectedTechs(prev =>
+            prev.includes(tech) ? prev.filter(t => t !== tech) : [...prev, tech]
+        );
+    };
+
+    const filteredProjects = useMemo(() => {
+        return projects.filter(project => {
+            const matchCategory = selectedCategories.length === 0 || (project.category && selectedCategories.includes(project.category));
+            const matchTech = selectedTechs.length === 0 || project.tags.some(t => selectedTechs.includes(t));
+            return matchCategory && matchTech;
+        });
+    }, [projects, selectedCategories, selectedTechs]);
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -91,17 +144,111 @@ const Projects: React.FC = () => {
             variants={containerVariants}
         >
             <motion.h2
-                className="text-2xl font-bold mb-8"
+                className="text-2xl font-bold mb-8 flex items-center gap-2"
                 variants={itemVariants}
             >
                 Projects
+                <span className="text-sm text-gray-500 dark:text-gray-400 font-normal">Here are some of my projects</span>
             </motion.h2>
 
+            <motion.div variants={itemVariants} className="mb-10 flex flex-col gap-6 glass px-3 py-2 rounded-xl border border-gray-200/50 dark:border-gray-800/50">
+                <div className="flex flex-col md:flex-row gap-8">
+                    <div className="flex-1 relative" ref={categoryRef}>
+                        <label className="text-sm font-small text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+                            <Filter className="w-3 h-3 text-pink-500" />
+                            By Category
+                        </label>
+                        <button
+                            onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+                            className="w-full flex items-center justify-between px-2 py-2 border border-gray-200 dark:border-gray-700 hover:border-pink-500/50 rounded-md text-sm font-small text-gray-700 dark:text-gray-200 transition-colors focus:outline-none"
+                        >
+                            <span className="truncate pr-2">
+                                {selectedCategories.length === 0 ? 'All Categories' : `${selectedCategories.length} selected`}
+                            </span>
+                            <ChevronDown className={`w-3 h-3 text-gray-500 transition-transform duration-300 ${isCategoryOpen ? 'rotate-180' : ''}`} />
+                        </button>
+
+                        {isCategoryOpen && (
+                            <div className="absolute top-full mt-2 w-full bg-white dark:bg-[#111118] border border-gray-200 dark:border-gray-800 rounded-xl shadow-xl shadow-black/10 dark:shadow-black/50 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                                <div className="p-2 flex flex-col gap-1 max-h-60 overflow-y-auto">
+                                    {categories.map(cat => (
+                                        <button
+                                            key={cat as string}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                toggleCategory(cat as string);
+                                            }}
+                                            className="w-full text-left flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group focus:outline-none"
+                                        >
+                                            <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${selectedCategories.includes(cat as string) ? 'bg-indigo-500 border-indigo-500' : 'border-gray-300 dark:border-gray-600 group-hover:border-gray-400 dark:group-hover:border-gray-500'}`}>
+                                                {selectedCategories.includes(cat as string) && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
+                                            </div>
+                                            <span className={`text-sm ${selectedCategories.includes(cat as string) ? 'text-gray-900 dark:text-white font-medium' : 'text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-300'}`}>
+                                                {cat as string}
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+
+                    <div className="flex-[2] relative" ref={techRef}>
+                        <label className="text-sm font-small text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+                            <Code2 className="w-3 h-3 text-pink-500" />
+                            By Tech Stack
+                        </label>
+                        <button
+                            onClick={() => setIsTechOpen(!isTechOpen)}
+                            className="w-full flex items-center justify-between px-2 py-2 border border-gray-200 dark:border-gray-700 hover:border-pink-500/50 rounded-md text-sm font-small text-gray-700 dark:text-gray-200 transition-colors focus:outline-none"
+                        >
+                            <span className="truncate pr-2">
+                                {selectedTechs.length === 0 ? 'All Tech Stacks' : `${selectedTechs.length} selected`}
+                            </span>
+                            <ChevronDown className={`w-3 h-3 text-gray-500 transition-transform duration-300 ${isTechOpen ? 'rotate-180' : ''}`} />
+                        </button>
+
+                        {isTechOpen && (
+                            <div className="absolute top-full mt-2 w-full bg-white dark:bg-[#111118] border border-gray-200 dark:border-gray-800 rounded-xl shadow-xl shadow-black/10 dark:shadow-black/50 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                                <div className="p-2 flex flex-col gap-1 max-h-60 overflow-y-auto">
+                                    {techStacks.map(tech => (
+                                        <button
+                                            key={tech as string}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                toggleTech(tech as string);
+                                            }}
+                                            className="w-full text-left flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors group focus:outline-none"
+                                        >
+                                            <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${selectedTechs.includes(tech as string) ? 'bg-indigo-500 border-indigo-500' : 'border-gray-300 dark:border-gray-600 group-hover:border-gray-400 dark:group-hover:border-gray-500'}`}>
+                                                {selectedTechs.includes(tech as string) && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
+                                            </div>
+                                            <span className={`text-sm flex-1 truncate ${selectedTechs.includes(tech as string) ? 'text-gray-900 dark:text-white font-medium' : 'text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-300'}`}>
+                                                {tech as string}
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </motion.div>
+
             <div className="grid gap-8 mb-12">
-                {projects.map((project, index) => (
+                {filteredProjects.length === 0 && (
+                    <div className="text-center py-12 text-gray-500 dark:text-gray-400 glass rounded-xl w-full">
+                        No projects found matching the selected filters.
+                    </div>
+                )}
+                {filteredProjects.map((project, index) => (
                     <motion.div
-                        key={index}
-                        variants={itemVariants}
+                        key={project.title}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true }}
                         whileHover={{ y: -5 }}
                         className="glass rounded-lg overflow-hidden hover:border-pink-500/50 transition-all group cursor-pointer"
                         onClick={() => project.link && window.open(project.link, '_blank')}
@@ -193,21 +340,32 @@ const Projects: React.FC = () => {
                                         const Icon = getIcon(tag);
 
                                         return (
-                                            <button
+                                            <div
                                                 key={tag}
-                                                className="text-xs px-3 py-1 rounded-md text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-pink-500 transition-all flex items-center gap-1.5 cursor-default bg-gray-50 dark:bg-gray-900/80"
+                                                className="inline-flex items-center px-3 py-1 gap-1.5 text-xs font-medium border border-pink-500/20 rounded-sm cursor-default hover:bg-pink-50 dark:hover:bg-pink-900/30 transition-colors text-gray-700 dark:text-gray-300"
                                             >
                                                 <Icon className={`w-3.5 h-3.5 ${getIconColor(tag)}`} />
-                                                {tag}
-                                            </button>
+                                                <span>{tag}</span>
+                                            </div>
                                         );
                                     })}
                                 </div>
                             </div>
                         </div>
                     </motion.div>
-                ))}
+                )).slice(0, showAllProjects ? undefined : 2)}
             </div>
+
+            {filteredProjects.length > 2 && (
+                <div className="flex justify-center mt-8">
+                    <button
+                        onClick={() => setShowAllProjects(!showAllProjects)}
+                        className="px-6 py-2.5 rounded-xl border border-pink-500/30 text-pink-500 hover:bg-pink-500 hover:text-white dark:hover:bg-pink-500 dark:hover:text-white transition-all duration-300 font-medium text-sm flex items-center gap-2"
+                    >
+                        {showAllProjects ? 'Show Less' : 'View More Projects'}
+                    </button>
+                </div>
+            )}
         </motion.section>
     );
 };

@@ -52,15 +52,16 @@ const Hero: React.FC = () => {
             <motion.div className="space-y-3 text-sm text-gray-500 dark:text-gray-400 mb-8" variants={itemVariants}>
                 <p>
                     <span className="text-gray-900 dark:text-white font-semibold">What I do:</span> Developing{' '}
-                    <span className="text-gray-900 dark:text-white font-medium">Frappe/ERPNext</span> modules,{' '}
-                    <span className="text-gray-900 dark:text-white font-medium">Laravel</span> applications, and building{' '}
-                    <span className="text-gray-900 dark:text-white font-medium">full-stack solutions</span> with React, Next.js, and modern databases.
+                    <span className="text-gray-900 dark:text-white font-medium">production-ready full-stack applications</span> using{' '}
+                    <span className="text-gray-900 dark:text-white font-medium">React, Next.js, GoLang</span>, and{' '}
+                    <span className="text-gray-900 dark:text-white font-medium">Node.js</span>. I also have experience building {' '}
+                    <span className="text-gray-900 dark:text-white font-medium">Frappe/ERPNext</span> modules and Laravel applications.
                 </p>
                 <p>
                     <span className="text-gray-900 dark:text-white font-semibold">Currently:</span> Working at{' '}
-                    <span className="text-gray-900 dark:text-white font-medium">Nestorbird</span>, integrating third-party services,{' '}
-                    optimizing SQL queries, and implementing{' '}
-                    <span className="text-gray-900 dark:text-white font-medium">role-based access control</span>.
+                    <span className="text-gray-900 dark:text-white font-medium">Nestorbird</span> building Frappe/ERPNext modules, and developing{' '}
+                    <span className="text-gray-900 dark:text-white font-medium">complex scalable systems</span> like my recent{' '}
+                    <span className="text-gray-900 dark:text-white font-medium">GoLang/Next.js Appointment Booking</span> and <span className="text-gray-900 dark:text-white font-medium">CodeLibra</span> platforms.
                 </p>
             </motion.div>
 

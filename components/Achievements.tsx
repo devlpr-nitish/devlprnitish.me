@@ -8,7 +8,7 @@ const Achievements: React.FC = () => {
     const achievements = [
         {
             text: 'Achieved ',
-            highlights: ['Knight rating of 1915+', ' on LeetCode, placing in the ', 'Top 4% globally'],
+            highlights: ['Knight rating of 1925+', ' on LeetCode, placing in the ', 'Top 4% globally'],
         },
         {
             text: 'Secured ',
@@ -52,10 +52,11 @@ const Achievements: React.FC = () => {
             variants={containerVariants}
         >
             <motion.h2
-                className="text-2xl font-bold mb-8"
+                className="text-2xl font-bold mb-8 flex items-center gap-2"
                 variants={itemVariants}
             >
                 Achievements
+                <span className="text-sm text-gray-500 dark:text-gray-400 font-normal">Here are some of my achievements</span>
             </motion.h2>
             <div className="space-y-3">
                 {achievements.map((achievement, index) => (

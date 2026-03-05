@@ -8,9 +8,51 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Nitish',
-  description: 'Nitish is a developer based in Mohali, India. Building beautiful things with code and design.',
-  generator: 'v0.app',
+  title: 'Nitish | Associate Software Developer',
+  description: 'Nitish is an Associate Software Developer based in Mohali, India, specializing in building production-ready full-stack applications with React, Next.js, GoLang, Node.js, and Frappe/ERPNext.',
+  generator: 'Next.js',
+  keywords: [
+    'Nitish',
+    'devlprnitish',
+    'Software Developer',
+    'Full Stack Developer',
+    'React',
+    'Next.js',
+    'GoLang',
+    'Node.js',
+    'Frappe',
+    'ERPNext',
+    'Laravel',
+    'Mohali',
+    'India'
+  ],
+  authors: [{ name: 'Nitish', url: 'https://github.com/devlpr-nitish' }],
+  creator: 'Nitish',
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: 'https://devlprnitish.tech',
+    title: 'Nitish | Associate Software Developer',
+    description: 'Nitish is an Associate Software Developer based in Mohali, India, specializing in building production-ready full-stack applications with React, Next.js, GoLang, Node.js, and Frappe/ERPNext.',
+    siteName: 'Nitish Portfolio',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Nitish | Associate Software Developer',
+    description: 'Nitish is an Associate Software Developer based in Mohali, India, specializing in building production-ready full-stack applications with React, Next.js, GoLang, Node.js, and Frappe/ERPNext.',
+    creator: '@devlprnitish',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: [
       {
